@@ -1,0 +1,21 @@
+local success, result = pcall(function()
+    local response = request({
+        Url = "https://raw.githubusercontent.com/rrd11s/MainInca/main/script.lua",
+        Method = "GET",
+        Headers = {
+            ["Authorization"] = "token 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"
+        }
+    })
+    
+    if response and response.StatusCode == 200 then
+        return response.Body
+    else
+        error("GitHub'dan veri çekilemedi, durum kodu: " .. tostring(response and response.StatusCode))
+    end
+end)
+
+if success and result then
+    loadstring(result)()
+else
+    warn("Loader Hatası: " .. tostring(result))
+end
